@@ -48,17 +48,15 @@ class Solution
     //Function to check if the linked list has a loop.
     bool detectLoop(Node* head)
     {
-        map<Node *,bool> table;
-
-        Node *temp = head;
-        while(temp != NULL) {
-            if(table[temp] == false) {
-                table[temp] = true;
-            }
-            else {
+        Node *slow = head;
+        Node *fast = head;
+        
+        while(fast != NULL && fast->next != NULL) {
+            fast = fast->next->next;
+            slow = slow->next;
+            if(fast == slow) {
                 return true;
             }
-            temp = temp->next;
         }
         return false;
     }
