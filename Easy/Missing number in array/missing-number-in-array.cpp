@@ -15,12 +15,15 @@ class Solution{
     int missingNumber(vector<int>& array, int n) {
         // Your code goes here
         int sum = 0;
-        int arr = 0;
-        for(int i=1;i<=n;i++) {
-            sum += i;
-            arr += array[i-2];
+        int totalsum = 0;
+        
+        for(int i=0;i<n-1;i++)
+        {
+            sum = sum + array[i];
         }
-        return sum-arr;
+        totalsum = n*(1+n)/2;
+        
+        return totalsum-sum;
     }
 };
 
