@@ -35,9 +35,6 @@ int missingNumber(int A[], int N)
         sum += A[i];
     }
 
-    for(int i=1;i<=N;i++)
-    {
-        totalsum += i;
-    }
-    return totalsum - sum;
+ 
+    return N*(1+N)/2 - sum;
 }
