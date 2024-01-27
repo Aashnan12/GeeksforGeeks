@@ -9,18 +9,6 @@ using namespace std;
 
 class Solution {
 public:
-    // void mysort(vector<int> &stalls,int n){
-    //     int s = 0;
-    //     int e = n-1;
-    //     while(s<e){
-    //         swap(stalls[s++],stalls[e--]);
-    //         // stalls[s] = stalls[s] ^ stalls[e];
-    //         // stalls[e] = stalls[s] ^ stalls[e];
-    //         // stalls[s] = stalls[s] ^ stalls[e];
-    //         // s++;
-    //         // e--;
-    //     }
-    // }
     
     int ispossible(vector<int> &stalls,int k,int mid){
         int cowcount = 1;
@@ -38,13 +26,12 @@ public:
     int solve(int n, int k, vector<int> &stalls) {
     
         // Write your code here
-        // mysort(stalls,n);
         sort(stalls.begin(),stalls.end());
         int s = 0;
         int e = stalls[n-1] - stalls[0];
         int ans = -1;
         while(s<=e){
-            int mid = s + (e-s)/2;
+            int mid = (s+e)>>1;
             if(ispossible(stalls,k,mid)){
                 ans = mid;
                 s = mid+1;
