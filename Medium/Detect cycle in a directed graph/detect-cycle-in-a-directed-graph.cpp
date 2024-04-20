@@ -5,30 +5,41 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  
-    bool isCycleDfs(vector<int> adj[],int u,vector<bool> &vis , vector<bool> &inrecurr) {
-        vis[u] = true;
-        inrecurr[u] = true;
-        
-        for(int &v : adj[u]){
-            if(vis[v]== false && isCycleDfs(adj,v,vis,inrecurr)) return true;
-            else if(inrecurr[v]){
-                return true;
-            }
-        }
-        inrecurr[u] = false;
-        return false;
-    }
+    // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
-        // code here
-        vector<bool> vis(V,false);
-        vector<bool> inrecurr(V,false);
+        queue<int> q;
+        vector<int> indegree(V,0);
+        
+        // Step 1 -> fill up Indegree Array
         for(int i=0;i<V;i++){
-            if(!vis[i] && isCycleDfs(adj,i,vis,inrecurr)){
-                return true;
+            for(int &v : adj[i]){
+                indegree[v]++;
             }
         }
-        return false;
+        
+        // Step 2 -> Pushing Indegree 0 Nodes into queue;
+        for(int i=0;i<V;i++){
+            if(indegree[i] == 0){
+                q.push(i);
+            }
+        }
+        
+        // Step 3 -> Simple bfs / Kanh's Algo
+        
+        int count = 0;
+        while(!q.empty()){
+            int u = q.front();
+            count++;
+            q.pop();
+            
+            for(int &v : adj[u]){
+                indegree[v]--;
+                if(indegree[v] == 0){
+                    q.push(v);
+                }
+            }
+        }
+        return count == V ? false : true;
     }
 };
 
