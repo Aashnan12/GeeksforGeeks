@@ -7,22 +7,26 @@ using namespace std;
 class Solution {
   public:
     int totalFruits(vector<int> &arr) {
-        unordered_map<int,int> mp;
-        int l = 0, r = 0;
+        int left = 0;
         int n = arr.size();
-        int k = 2;
+        int right = 0;
+        int baskets = 2;
+        unordered_map<int,int> mp;
         int maxi = 0;
-        while(r<n){
-            mp[arr[r]]++;
-            while(mp.size() > k){
-                mp[arr[l]]--;
-                if(mp[arr[l]] == 0){
-                    mp.erase(arr[l]);
+        
+        while(right < n){
+            mp[arr[right]]++;
+            while(mp.size() > baskets){
+                mp[arr[left]]--;
+                if(mp[arr[left]] == 0){
+                    mp.erase(arr[left]);
                 }
-                l++;
+                left++;
             }
-            maxi = max(maxi,r-l+1);
-            r++;
+            if(mp.size() <= baskets){
+                maxi = max(maxi,right-left+1);
+            }
+            right++;
         }
         return maxi;
     }
@@ -49,6 +53,7 @@ int main() {
         int ans = ob.totalFruits(arr);
 
         cout << ans << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
